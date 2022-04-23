@@ -1,11 +1,13 @@
 import './App.css';
 import TodoCard from './components/TodoCard';
+import ToggleButtons from './components/ToggleButtons';
 
 function App() {
   return (
-    <div>
-      <TodoCard/>
-    </div>
+    <body className='container'>
+      <h2 >Todo app</h2>
+      <ToggleButtons/>
+    </body>
   );
 }
 
