@@ -5,8 +5,10 @@ import ToggleButtons from './components/ToggleButtons';
 function App() {
   return (
     <body className='container'>
-      <h2 >Todo app</h2>
-      <ToggleButtons/>
+      <h2 id='centered'>Todo app</h2>
+      <div id='centered'>
+        <ToggleButtons/>
+      </div>
     </body>
   );
 }

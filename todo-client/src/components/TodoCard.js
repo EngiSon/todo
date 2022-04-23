@@ -7,15 +7,15 @@ import {CardContent, Card, Typography, IconButton} from '@mui/material'
 
 export default function TodoCard() {
   return(
-    <Card sx={{ width: 500}} style={{backgroundColor: '#282c34'}}>
+    <Card sx={{ width:500}}>
       <CardContent>
-       <Typography sx={{ fontSize:14 }} color="white" gutterBottom>
+       <Typography sx={{ fontSize:14 }} gutterBottom>
           Name
        </Typography>
-       <Typography variant="body2" color="white" gutterBottom>
+       <Typography variant="body2" gutterBottom>
           Description
         </Typography>
-        <Typography sx={{ fontSize:12 }}color="white">
+        <Typography sx={{ fontSize:12 }}>
           Due date
         </Typography>
         <IconButton color="primary">
