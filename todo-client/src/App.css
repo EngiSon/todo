@@ -3,3 +3,10 @@
   display: flex;
   justify-content: center;
 }
+
+#centered-topmargin {
+  margin-top: 0.5%;
+  width:100%;
+  display: flex;
+  justify-content: center;
+}
