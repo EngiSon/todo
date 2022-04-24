@@ -3,12 +3,20 @@ import SendIcon from '@mui/icons-material/Send';
 import TextField from '@mui/material/TextField';
 import { Card, IconButton, Stack } from '@mui/material';
 
-export default function InputRow() {
+export default function InputRow(props) {
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const name = document.getElementById('name');
+    const desc = document.getElementById('description');
+    const date = document.getElementById('date');
+    props.addTodo(name, desc, date, 'prog')
+  }
+
   return (
-    <form>
+    <form id='input-form' onSubmit={handleSubmit}>
       <Stack direction="row">
         <Card
-          component="form"
           noValidate
           autoComplete="off"
         >
