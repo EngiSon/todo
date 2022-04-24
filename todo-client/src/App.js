@@ -1,3 +1,4 @@
+import { Stack } from '@mui/material';
 import './App.css';
 import InputRow from './components/InputRow';
 import TodoCard from './components/TodoCard';
@@ -13,6 +14,9 @@ function App() {
       <div id='centered-topmargin'>
         <ToggleButtons/>
       </div>
+      <Stack>
+        {todos}
+      </Stack>
     </div>
   );
 }
