@@ -27,7 +27,7 @@ export default function TodoCard(props) {
         <IconButton color="primary">
           <ArrowDownwardIcon/>
         </IconButton>
-        <IconButton color="primary">
+        <IconButton color="primary" onClick={() => props.deleteTodo(props.id)}>
           <DeleteIcon/>
         </IconButton>
       </CardContent>
