@@ -27,8 +27,7 @@ function App() {
       desc = {todo.desc}
       date = {todo.date}
       deleteTodo = {deleteTodo}
-      moveUp = {moveUp}
-      moveDown = {moveDown}
+      moveTodo = {moveTodo}
     />
   ))
 
@@ -42,24 +41,14 @@ function App() {
     setTodos(newTodos)
   }
 
-  function moveUp(id) {
+  function moveTodo(id, dir) {
     const indexOfMoving = todos.indexOf(todos.find(todo => id === todo.id));
-    if (indexOfMoving != 0) {
+    if (
+      !(indexOfMoving != 0 && dir == -1)
+      || !(indexOfMoving != todos.length - 1 && dir != 1)) {
       const movingTodo = todos.filter(todo => id === todo.id)[0];
       const newTodos = todos.filter(todo => id != todo.id)
-      newTodos.splice(indexOfMoving - 1, 0, movingTodo)
-      setTodos(newTodos);
-    } else {
-      return
-    }
-  }
-
-  function moveDown(id) {
-    const indexOfMoving = todos.indexOf(todos.find(todo => id === todo.id));
-    if (indexOfMoving != todos.length - 1 ) {
-      const movingTodo = todos.filter(todo => id === todo.id)[0];
-      const newTodos = todos.filter(todo => id != todo.id)
-      newTodos.splice(indexOfMoving + 1, 0, movingTodo)
+      newTodos.splice(indexOfMoving + dir, 0, movingTodo)
       setTodos(newTodos);
     } else {
       return
