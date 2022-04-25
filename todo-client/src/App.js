@@ -27,6 +27,8 @@ function App() {
       desc = {todo.desc}
       date = {todo.date}
       deleteTodo = {deleteTodo}
+      moveUp = {moveUp}
+      moveDown = {moveDown}
     />
   ))
 
@@ -40,6 +42,46 @@ function App() {
     setTodos(newTodos)
   }
 
+  function moveUp(id) {
+    const indexOfMoving = todos.indexOf(todos.find(todo => id === todo.id));
+    if (indexOfMoving != 0) {
+      const movingTodo = todos.filter(todo => id === todo.id)[0];
+      const newTodos = todos.filter(todo => id != todo.id)
+      newTodos.splice(indexOfMoving - 1, 0, movingTodo)
+      setTodos(newTodos);
+    } else {
+      return
+    }
+  }
+
+  function moveDown(id) {
+    const indexOfMoving = todos.indexOf(todos.find(todo => id === todo.id));
+    if (indexOfMoving != todos.length - 1 ) {
+      const movingTodo = todos.filter(todo => id === todo.id)[0];
+      const newTodos = todos.filter(todo => id != todo.id)
+      newTodos.splice(indexOfMoving + 1, 0, movingTodo)
+      setTodos(newTodos);
+    } else {
+      return
+    }
+  }
+
+  function setDone(id) {
+    //Todo
+  }
+
+  function setProg(id) {
+    //Todo
+  }
+
+  function setPostponed(id) {
+    //Todo
+  }
+
+  function setPending(id) {
+    //Todo
+  }
+
   return (
     <div id='app-container'>
       <h2 id='centered'>Todo app</h2>
@@ -50,7 +92,7 @@ function App() {
         <ToggleButtons/>
       </div>
       <div id='centered'>
-        <Stack>
+        <Stack spacing={0.5}>
           {todosList}
         </Stack>
       </div>

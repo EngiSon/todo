@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useState} from 'react';
-import SendIcon from '@mui/icons-material/Send';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import TextField from '@mui/material/TextField';
 import { Card, IconButton, Stack } from '@mui/material';
 
@@ -52,7 +52,7 @@ export default function InputRow(props) {
           />
         </Card>
         <IconButton color='primary' type='submit'>
-          <SendIcon/>
+          <AddCircleIcon/>
         </IconButton>
       </Stack>
     </form>
