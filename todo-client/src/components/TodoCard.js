@@ -21,16 +21,16 @@ export default function TodoCard(props) {
         <Typography sx={{ fontSize:12 }} id='card-date'>
           {props.date}
         </Typography>
-        <IconButton color="primary">
+        <IconButton color="primary" onClick={() => props.setStatus(props.id, 'done')}>
           <CheckIcon/>
         </IconButton>
-        <IconButton color="primary">
+        <IconButton color="primary" onClick={() => props.setStatus(props.id, 'prog')}>
           <RotateRightIcon/>
         </IconButton>
-        <IconButton color="primary">
+        <IconButton color="primary" onClick={() => props.setStatus(props.id, 'postponed')}>
           <HourglassEmptyIcon/>
         </IconButton>
-        <IconButton color="primary">
+        <IconButton color="primary" onClick={() => props.setStatus(props.id, 'pending')}>
           <PendingIcon/>
         </IconButton>
         <IconButton color="primary" onClick={() => props.moveTodo(props.id, -1)}>

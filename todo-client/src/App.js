@@ -18,8 +18,9 @@ class Todo {
 
 function App() {
   const [todos, setTodos] = useState([]);
+  const [filtStatus, setFiltStatus] = useState('prog');
   
-  const todosList = todos.map(todo => (
+  const todosList = todos.filter(todo => todo.status == filtStatus).map(todo => (
     <TodoCard
       id = {todo.id}
       key = {todo.id}
@@ -28,6 +29,7 @@ function App() {
       date = {todo.date}
       deleteTodo = {deleteTodo}
       moveTodo = {moveTodo}
+      setStatus = {setStatus}
     />
   ))
 
@@ -45,7 +47,7 @@ function App() {
     const indexOfMoving = todos.indexOf(todos.find(todo => id === todo.id));
     if (
       !(indexOfMoving == 0 && dir == -1)
-      || !(indexOfMoving == todos.length - 1 && dir == 1)) {
+      && !(indexOfMoving == todos.length - 1 && dir == 1)) {
       const movingTodo = todos.filter(todo => id === todo.id)[0];
       const newTodos = todos.filter(todo => id != todo.id)
       newTodos.splice(indexOfMoving + dir, 0, movingTodo)
@@ -55,20 +57,19 @@ function App() {
     }
   }
 
-  function setDone(id) {
-    //Todo
+  function setStatus(id, stat) {
+    const newTodos = todos.map(todo => {
+      if (id == todo.id 
+          && todos.find(todo => todo.id == id).status != stat) {
+        return {...todo, status: stat}
+      }
+      return todo
+    })
+    setTodos(newTodos)
   }
 
-  function setProg(id) {
-    //Todo
-  }
-
-  function setPostponed(id) {
-    //Todo
-  }
-
-  function setPending(id) {
-    //Todo
+  function setFilteredStatus(status) {
+    setFiltStatus(status)
   }
 
   return (
@@ -78,7 +79,7 @@ function App() {
         <InputRow id='input-row' addTodo={addTodo}/>
       </div>
       <div id='centered-topmargin'>
-        <ToggleButtons/>
+        <ToggleButtons setFilteredStatus={setFilteredStatus}/>
       </div>
       <div id='centered'>
         <Stack spacing={0.5}>
