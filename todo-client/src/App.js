@@ -44,8 +44,8 @@ function App() {
   function moveTodo(id, dir) {
     const indexOfMoving = todos.indexOf(todos.find(todo => id === todo.id));
     if (
-      !(indexOfMoving != 0 && dir == -1)
-      || !(indexOfMoving != todos.length - 1 && dir != 1)) {
+      !(indexOfMoving == 0 && dir == -1)
+      || !(indexOfMoving == todos.length - 1 && dir == 1)) {
       const movingTodo = todos.filter(todo => id === todo.id)[0];
       const newTodos = todos.filter(todo => id != todo.id)
       newTodos.splice(indexOfMoving + dir, 0, movingTodo)
