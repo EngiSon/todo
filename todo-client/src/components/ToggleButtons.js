@@ -2,11 +2,14 @@ import * as React from 'react';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
-export default function ToggleButtons() {
+export default function ToggleButtons(props) {
   const [status, setStatus] = React.useState('prog');
 
   const handleStatus = (event, newStatus) => {
-    setStatus(newStatus);
+    if (status != newStatus && newStatus != null) {
+      props.setFilteredStatus(newStatus)
+      setStatus(newStatus);
+    }
   };
 
   return (
