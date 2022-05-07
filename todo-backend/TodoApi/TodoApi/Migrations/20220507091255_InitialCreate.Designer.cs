@@ -12,7 +12,7 @@ using TodoApi.Dal;
 namespace TodoApi.Migrations
 {
     [DbContext(typeof(TodoContext))]
-    [Migration("20220503075125_InitialCreate")]
+    [Migration("20220507091255_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,6 +37,9 @@ namespace TodoApi.Migrations
 
                     b.Property<DateTime?>("DueDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("Position")
+                        .HasColumnType("int");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");

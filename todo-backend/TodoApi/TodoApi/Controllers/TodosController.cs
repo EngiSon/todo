@@ -79,6 +79,7 @@ namespace TodoApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Todo>> PostTodo(Todo todo)
         {
+            todo.Position = ctx.Todos.Count();
             ctx.Todos.Add(todo);
             await ctx.SaveChangesAsync();
 
@@ -96,6 +97,47 @@ namespace TodoApi.Controllers
             }
 
             ctx.Todos.Remove(todo);
+            await ctx.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        [HttpPut("{id}/moveup")]
+        public async Task<IActionResult> MoveTodoUp(int id)
+        {
+            var todo = await ctx.Todos.FindAsync(id);
+            if (todo == null)
+            {
+                return NotFound();
+            } else if (ctx.Todos.Count() == todo.Position + 1)
+            {
+                return BadRequest();
+            }
+
+            ctx.Todos.Where(t => t.Position == todo.Position + 1).Single().Position -= 1;
+            todo.Position += 1;
+
+            await ctx.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        [HttpPut("{id}/movedown")]
+        public async Task<IActionResult> MoveTodoDown(int id)
+        {
+            var todo = await ctx.Todos.FindAsync(id);
+            if (todo == null)
+            {
+                return NotFound();
+            }
+            else if (todo.Position == 0)
+            {
+                return BadRequest();
+            }
+
+            ctx.Todos.Where(t => t.Position == todo.Position - 1).Single().Position += 1;
+            todo.Position -= 1;
+
             await ctx.SaveChangesAsync();
 
             return NoContent();

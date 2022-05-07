@@ -15,6 +15,7 @@ namespace TodoApi.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Position = table.Column<int>(type: "int", nullable: true),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DueDate = table.Column<DateTime>(type: "datetime2", nullable: true),
