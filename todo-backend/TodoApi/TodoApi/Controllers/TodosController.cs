@@ -11,7 +11,7 @@ using TodoApi.Models;
 
 namespace TodoApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Todos")]
     [ApiController]
     public class TodosController : ControllerBase
     {
