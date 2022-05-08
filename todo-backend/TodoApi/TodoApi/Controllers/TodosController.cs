@@ -46,14 +46,14 @@ namespace TodoApi.Controllers
         // PUT: api/Todos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTodo(int id, Todo todo)
+        public async Task<IActionResult> PutTodo(int id, TodoDTO todo)
         {
             if (id != todo.Id)
             {
                 return BadRequest();
             }
 
-            ctx.Entry(todo).State = EntityState.Modified;
+            ctx.Todos.Where(t => t.Id == id).Single().Status = todo.Status;
 
             try
             {
@@ -77,10 +77,11 @@ namespace TodoApi.Controllers
         // POST: api/Todos
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Todo>> PostTodo(Todo todo)
+        public async Task<ActionResult<Todo>> PostTodo(TodoDTO todo)
         {
-            todo.Position = ctx.Todos.Count();
-            ctx.Todos.Add(todo);
+            Todo newTodo = DTOtoItem(todo);
+            newTodo.Position = ctx.Todos.Count();
+            ctx.Todos.Add(newTodo);
             await ctx.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetTodo), new { id = todo.Id }, todo);
@@ -153,5 +154,27 @@ namespace TodoApi.Controllers
         {
             return ctx.Todos.Any(e => e.Id == id);
         }
+
+        private static TodoDTO ItemToDTO(Todo todo) =>
+            new TodoDTO()
+            {
+                Id = todo.Id,
+                Position = (int)todo.Position,
+                Title = todo.Title,
+                Description = todo.Description,
+                DueDate = todo.DueDate.ToString(),
+                Status = todo.Status.ToString()
+            };
+
+        private static Todo DTOtoItem(TodoDTO dto) =>
+            new Todo()
+            {
+                Id = dto.Id,
+                Position = dto.Position,
+                Title = dto.Title,
+                Description = dto.Description,
+                DueDate = DateTime.Parse(dto.DueDate),
+                Status = dto.Status
+            };
     }
 }

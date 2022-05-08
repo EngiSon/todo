@@ -8,12 +8,12 @@ namespace TodoApi.Test
     [TestClass]
     public class TodoApiAddTest
     {
-        private readonly Todo testTodo = new Todo()
+        private readonly TodoDTO testTodo = new TodoDTO()
         {
             Title = "Test123",
             Description = "TestDescription",
-            DueDate = System.DateTime.Parse("Jan 1, 2009"),
-            Status = Status.DONE
+            DueDate = "Jan 1, 2009",
+            Status = "DONE"
         };
 
         [TestMethod]
