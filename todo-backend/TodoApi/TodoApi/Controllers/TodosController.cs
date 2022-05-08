@@ -26,7 +26,7 @@ namespace TodoApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Todo>>> GetTodoItems()
         {
-            return await ctx.Todos.ToListAsync();
+            return await ctx.Todos.OrderByDescending(t => t.Position).ToListAsync();
         }
 
         // GET: api/Todos/5
@@ -95,7 +95,13 @@ namespace TodoApi.Controllers
             {
                 return NotFound();
             }
-
+            foreach (var todos in ctx.Todos)
+            {
+                if (todos.Position > todo.Position)
+                {
+                    todo.Position--;
+                }
+            }
             ctx.Todos.Remove(todo);
             await ctx.SaveChangesAsync();
 
