@@ -33,10 +33,10 @@ export default function TodoCard(props) {
         <IconButton color="primary" onClick={() => props.setStatus(props.id, 'pending')}>
           <PendingIcon/>
         </IconButton>
-        <IconButton color="primary" onClick={() => props.moveTodo(props.id, -1)}>
+        <IconButton color="primary" onClick={() => props.moveTodo(props.id, 1)}>
           <ArrowUpwardIcon/>
         </IconButton>
-        <IconButton color="primary" onClick={() => props.moveTodo(props.id, 1)}>
+        <IconButton color="primary" onClick={() => props.moveTodo(props.id, -1)}>
           <ArrowDownwardIcon/>
         </IconButton>
         <IconButton color='warning' onClick={() => props.deleteTodo(props.id)}>

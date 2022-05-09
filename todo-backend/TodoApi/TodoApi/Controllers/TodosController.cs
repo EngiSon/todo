@@ -163,7 +163,7 @@ namespace TodoApi.Controllers
                 Title = todo.Title,
                 Description = todo.Description,
                 DueDate = todo.DueDate.ToString(),
-                Status = todo.Status.ToString()
+                Status = todo.Status
             };
 
         private static Todo DTOtoItem(TodoDTO dto) =>
