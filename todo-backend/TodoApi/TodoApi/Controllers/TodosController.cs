@@ -48,7 +48,11 @@ namespace TodoApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTodo(int id, TodoDTO todo)
         {
-            if (id != todo.Id)
+            if (id != todo.Id 
+                || todo.Status != "done" 
+                || todo.Status != "prog" 
+                || todo.Status != "postponed" 
+                || todo.Status != "pending")
             {
                 return BadRequest();
             }
@@ -79,6 +83,13 @@ namespace TodoApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Todo>> PostTodo(TodoDTO todo)
         {
+            if (todo.Status != "done" 
+                || todo.Status != "prog" 
+                || todo.Status != "postponed" 
+                || todo.Status != "pending")
+            {
+                return BadRequest();
+            }
             Todo newTodo = DTOtoItem(todo);
             newTodo.Position = ctx.Todos.Count();
             ctx.Todos.Add(newTodo);
@@ -116,7 +127,7 @@ namespace TodoApi.Controllers
             if (todo == null)
             {
                 return NotFound();
-            } else if (ctx.Todos.Count() == todo.Position + 1)
+            } else if (ctx.Todos.Count() == todo.Position)
             {
                 return BadRequest();
             }

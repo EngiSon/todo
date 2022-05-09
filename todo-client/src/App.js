@@ -9,9 +9,9 @@ class Todo {
   constructor(id, position, name, description, dueDate, status) {
     this.id = id;
     this.position = position;
-    this.name = name;
-    this.desc = description;
-    this.date = dueDate;
+    this.title = name;
+    this.description= description;
+    this.duedate = dueDate;
     this.status = status;
   }
 }
@@ -19,16 +19,17 @@ class Todo {
 function App() {
   const axios = require('axios').default;
   const uri = 'http://localhost:5160/api/todos'
-  const [todos, setTodos] = useState(getAllTodos());
+  const [todos, setTodos] = useState([]);
   const [filtStatus, setFiltStatus] = useState('prog');
+  
   
   const todosList = todos.filter(todo => todo.status === filtStatus).map(todo => (
     <TodoCard
       id = {todo.id}
       key = {todo.id}
-      name = {todo.name}
-      desc = {todo.desc}
-      date = {todo.date}
+      name = {todo.title}
+      desc = {todo.description}
+      date = {todo.duedate}
       deleteTodo = {deleteTodo}
       moveTodo = {moveTodo}
       setStatus = {setStatus}
@@ -47,7 +48,7 @@ function App() {
     } catch (error) {
       console.error(error)
     }
-    setTodos(getAllTodos())
+    await getAllTodos()
   }
 
   async function deleteTodo(id) {
@@ -56,11 +57,11 @@ function App() {
     } catch (error) {
       console.error(error)
     }
-    setTodos(getAllTodos())
+    await getAllTodos()
   }
 
   async function moveTodo(id, dir) {
-    const indexOfMoving = todos.indexOf(todos.find(todo => id === todo.id));
+    const indexOfMoving = todos.indexOf(todos.find(todo => id === todo.Id));
     if (
       !(indexOfMoving === 0 && dir === 1)
       && !(indexOfMoving === todos.length - 1 && dir === -1)) {
@@ -77,7 +78,7 @@ function App() {
           console.error(error)
         }
       }
-      setTodos(getAllTodos());
+      await getAllTodos()
     } else {
       return
     }
@@ -87,33 +88,27 @@ function App() {
     const newTodo = await todos.find(todo => todo.id === id)
     try {
       axios.put(uri+"/"+id, {
-        Id: newTodo.id,
-        Position: newTodo.position,
-        Title: newTodo.title,
-        Description: newTodo.description,
-        DueDate: newTodo.date,
-        Status: stat
+        id: newTodo.id,
+        position: newTodo.position,
+        title: newTodo.title,
+        description: newTodo.description,
+        duedate: newTodo.duedate,
+        status: stat
       })
     } catch (error) {
       console.error(error)
     }
-    setTodos(getAllTodos())
+    await getAllTodos()
   }
 
   function setFilteredStatus(status) {
     setFiltStatus(status)
   }
 
-  function getAllTodos() {
+  async function getAllTodos() {
     try {
-      let newTodos = []
-      //axios.get(uri).then(result => result.data).then(todo => newTodos.push(new Todo(todo.Id, todo.Position, todo.Name, todo.Description, todo.DueDate, todo.Status)))
-      // for (var todo of response) {
-      //   newTodos.push(
-      //     new Todo(todo.Id, todo.Position, todo.Name, todo.Description, todo.DueDate, todo.Status)
-      //   )
-      // }
-      return newTodos
+      await axios.get(uri).then(result => setTodos(result.data))
+      console.log(todos)
     } catch (error) {
       console.error(error)
     }
