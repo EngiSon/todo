@@ -6,7 +6,7 @@ export default function ToggleButtons(props) {
   const [status, setStatus] = React.useState('prog');
 
   const handleStatus = (event, newStatus) => {
-    if (status != newStatus && newStatus != null) {
+    if (status !== newStatus && newStatus != null) {
       props.setFilteredStatus(newStatus)
       setStatus(newStatus);
     }
