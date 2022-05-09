@@ -48,11 +48,11 @@ namespace TodoApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTodo(int id, TodoDTO todo)
         {
-            if (id != todo.Id 
-                || todo.Status != "done" 
-                || todo.Status != "prog" 
-                || todo.Status != "postponed" 
-                || todo.Status != "pending")
+            if (id != todo.Id
+                && !(todo.Status.Equals("done")
+                || todo.Status.Equals("prog")
+                || todo.Status.Equals("postponed")
+                || todo.Status.Equals("pending")))
             {
                 return BadRequest();
             }
@@ -83,10 +83,10 @@ namespace TodoApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Todo>> PostTodo(TodoDTO todo)
         {
-            if (todo.Status != "done" 
-                || todo.Status != "prog" 
-                || todo.Status != "postponed" 
-                || todo.Status != "pending")
+            if (!(todo.Status.Equals("done")
+                || todo.Status.Equals("prog") 
+                || todo.Status.Equals("postponed") 
+                || todo.Status.Equals("pending")))
             {
                 return BadRequest();
             }
