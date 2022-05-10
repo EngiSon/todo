@@ -25,14 +25,14 @@ After you are done with that and you have connected to localDB, right click on *
 
 Navigate into the todo-backend/TodoApi folder in the downloaded (or cloned) project folder and open the solution file in there. After you have done that, make sure that all dependencies are resolved in the project and then open the package manager console (PMC), by going to Tools/NuGet Package Manager. After you have done that, run the following command in the PMC:
 
-    `Update-Database`
+    Update-Database
 
 - **Installing node packages for the frontend**
 
 This step requires you to have npm (Node package manager), so make sure that you have it installed.
 Navigate into the todo-client folder in the project in the terminal of your choice and then run the following command:
 
-    `npm install`
+    npm install
 
 It might take a while, but after it has installed, everything should be ready to start using the app.
 
@@ -44,7 +44,7 @@ Open the **TodoApi** solution (.sln) and launch the app using either **F5** or t
 
 To launch the frontend, navigate into the todo-client folder in the project and run the following command:
 
-`npm start`
+    npm start
 
 After a few seconds, the web application should be up and running and now you can use the app to store your todos!
 
