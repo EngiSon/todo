@@ -58,11 +58,11 @@ The app in itself is quite self explanatory, but here is a short rundown of what
 
 ### Adding new todos
 
-You can add new todos by filling out the form on the top of the screen. Whhen you have filled out each of the inputs, you can press the plus button next to the form to add it to the list. It is important that you give some data for each of the inputs, otherwise it won't even let you add it to the list of todos.
+You can add new todos by filling out the form on the top of the screen. When you have filled out each of the inputs, you can press the plus button next to the form to add it to the list. It is important that you give some data for each of the inputs, otherwise it won't even let you add it to the list of todos.
 
 ### Filtering todos
 
-You can filter the list of todos by clicking on the filter buttons below the todo form. Using this will only show todos that have the same status as the selected status.
+You can filter the list of todos by clicking on the filter buttons below the todo form. Using this will only show todos that have the same status as the selected status and will resolve it client side without an API call.
 
 ### The todo card
 
@@ -74,4 +74,4 @@ You can change the todo's status with the first four buttons (if the status you 
 
 To move the todo up and down in the list, thus changing its priority, you can use the arrow buttons on the todo card, moving the card up and down respectively. Trying to move the todo card out of its boundaries won't work, so don't even try.
 
-The final button that you can click on a todo card is the delete button, which will, as its name suggests, deletes the corresponding todo from the database. Make sure that you really want to delete the doto before doing so, because deleting it from the database will make it so you cannot get it back by any means.
+The final button that you can click on a todo card is the delete button, which will, as its name suggests, delete the corresponding todo from the database. Make sure that you really want to delete the todo before doing so, because deleting it from the database will make it so you cannot get it back by any means.
