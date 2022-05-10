@@ -6,10 +6,8 @@
 - [Visual Studio](https://visualstudio.microsoft.com/) with .NET support
 - [Microsoft SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15)
 ---
-### Setting up the application
-To get the application working you first have to go through some simple steps.
 
-**Cloning the repository**
+## Cloning the repository
 - Using the terminal
 You can clone the repository by using the terminal of your choice, but this step requires that you have [git](https://git-scm.com/) installed on your computer. Just navigate to the  folder that you want the app in, then run the following command:
 
