@@ -49,7 +49,7 @@ namespace TodoApi.Controllers
         public async Task<IActionResult> PutTodo(int id, TodoDTO todo)
         {
             if (id != todo.Id
-                && !(todo.Status.Equals("done")
+                || !(todo.Status.Equals("done")
                 || todo.Status.Equals("prog")
                 || todo.Status.Equals("postponed")
                 || todo.Status.Equals("pending")))

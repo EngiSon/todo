@@ -6,12 +6,12 @@ import TodoCard from './components/TodoCard';
 import ToggleButtons from './components/ToggleButtons';
 
 class Todo {
-  constructor(id, position, name, description, dueDate, status) {
+  constructor(id, position, name, description, duedate, status) {
     this.id = id;
     this.position = position;
     this.title = name;
     this.description= description;
-    this.duedate = dueDate;
+    this.dueDate = duedate;
     this.status = status;
   }
 }
@@ -21,6 +21,7 @@ function App() {
   const uri = 'http://localhost:5160/api/todos'
   const [todos, setTodos] = useState([]);
   const [filtStatus, setFiltStatus] = useState('prog');
+  getAllTodos();
   
   
   const todosList = todos.filter(todo => todo.status === filtStatus).map(todo => (
@@ -29,7 +30,7 @@ function App() {
       key = {todo.id}
       name = {todo.title}
       desc = {todo.description}
-      date = {todo.duedate}
+      date = {todo.dueDate}
       deleteTodo = {deleteTodo}
       moveTodo = {moveTodo}
       setStatus = {setStatus}
@@ -105,9 +106,9 @@ function App() {
     setFiltStatus(status)
   }
 
-  async function getAllTodos() {
+  function getAllTodos() {
     try {
-      await axios.get(uri).then(result => setTodos(result.data))
+      axios.get(uri).then(result => setTodos(result.data))
       console.log(todos)
     } catch (error) {
       console.error(error)
