@@ -21,7 +21,6 @@ function App() {
   const uri = 'http://localhost:5160/api/todos'
   const [todos, setTodos] = useState([]);
   const [filtStatus, setFiltStatus] = useState('prog');
-  getAllTodos();
   
   
   const todosList = todos.filter(todo => todo.status === filtStatus).map(todo => (
@@ -39,7 +38,7 @@ function App() {
 
   async function addTodo(name, desc, date) {
     try {
-      axios.post(uri,
+      await axios.post(uri,
         {
           Title: name,
           Description: desc,
@@ -49,16 +48,16 @@ function App() {
     } catch (error) {
       console.error(error)
     }
-    await getAllTodos()
+    getAllTodos()
   }
 
   async function deleteTodo(id) {
     try {
-      axios.delete(uri+"/"+id)
+      await axios.delete(uri+"/"+id)
     } catch (error) {
       console.error(error)
     }
-    await getAllTodos()
+    getAllTodos()
   }
 
   async function moveTodo(id, dir) {
@@ -68,18 +67,18 @@ function App() {
       && !(indexOfMoving === todos.length - 1 && dir === -1)) {
       if (dir === -1) {
         try {
-          axios.put(uri+"/"+id+"/movedown")
+          await axios.put(uri+"/"+id+"/movedown")
         } catch (error) {
           console.error(error)
         }
       } else if (dir === 1) {
         try {
-          axios.put(uri+"/"+id+"/moveup")
+          await axios.put(uri+"/"+id+"/moveup")
         } catch (error) {
           console.error(error)
         }
       }
-      await getAllTodos()
+      getAllTodos()
     } else {
       return
     }
@@ -88,7 +87,7 @@ function App() {
   async function setStatus(id, stat) {
     const newTodo = await todos.find(todo => todo.id === id)
     try {
-      axios.put(uri+"/"+id, {
+      await axios.put(uri+"/"+id, {
         id: newTodo.id,
         position: newTodo.position,
         title: newTodo.title,
@@ -99,7 +98,7 @@ function App() {
     } catch (error) {
       console.error(error)
     }
-    await getAllTodos()
+    getAllTodos()
   }
 
   function setFilteredStatus(status) {
@@ -108,7 +107,7 @@ function App() {
 
   function getAllTodos() {
     try {
-      axios.get(uri).then(result => setTodos(result.data))
+      await axios.get(uri).then(result => setTodos(result.data))
       console.log(todos)
     } catch (error) {
       console.error(error)
