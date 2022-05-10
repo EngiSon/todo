@@ -8,12 +8,14 @@
 ---
 
 ## Cloning the repository
-- Using the terminal
+- **Using the terminal**
+
 You can clone the repository by using the terminal of your choice, but this step requires that you have [git](https://git-scm.com/) installed on your computer. Just navigate to the  folder that you want the app in, then run the following command:
 
     `git clone https://github.com/EngiSon/todo.git`
 
-- Using the GitHub website to download the file
+- **Using the GitHub website to download the file**
+
 You can also download the repository by going to the [project's website](https://github.com/EngiSon/todo), clicking on the green button titled **Code** and  then downloading the project as a ZIP file with the **Download ZIP** button.
 
 ## Setting up the application
