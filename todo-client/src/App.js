@@ -85,16 +85,8 @@ function App() {
   }
 
   async function setStatus(id, stat) {
-    const newTodo = await todos.find(todo => todo.id === id)
     try {
-      await axios.put(uri+"/"+id, {
-        id: newTodo.id,
-        position: newTodo.position,
-        title: newTodo.title,
-        description: newTodo.description,
-        duedate: newTodo.duedate,
-        status: stat
-      })
+      await axios.put(uri+"/"+id+"/"+stat)
     } catch (error) {
       console.error(error)
     }
