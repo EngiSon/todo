@@ -45,15 +45,23 @@ namespace TodoApi.Controllers
 
         // PUT: api/Todos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTodo(int id, TodoDTO todo)
+        [HttpPut("{id}/{status}")]
+        public async Task<IActionResult> PutTodo(int id, string status)
         {
-            if (id != todo.Id)
+            var todo = await ctx.Todos.FindAsync(id);
+            if (todo == null)
+            {
+                return NotFound();
+            }
+            if (!(status.Equals("done")
+                || status.Equals("prog")
+                || status.Equals("postponed")
+                || status.Equals("pending")))
             {
                 return BadRequest();
             }
 
-            ctx.Todos.Where(t => t.Id == id).Single().Status = todo.Status;
+            ctx.Todos.Where(t => t.Id == id).Single().Status = status;
 
             try
             {
@@ -79,6 +87,13 @@ namespace TodoApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Todo>> PostTodo(TodoDTO todo)
         {
+            if (!(todo.Status.Equals("done")
+                || todo.Status.Equals("prog") 
+                || todo.Status.Equals("postponed") 
+                || todo.Status.Equals("pending")))
+            {
+                return BadRequest();
+            }
             Todo newTodo = DTOtoItem(todo);
             newTodo.Position = ctx.Todos.Count();
             ctx.Todos.Add(newTodo);
@@ -100,7 +115,7 @@ namespace TodoApi.Controllers
             {
                 if (todos.Position > todo.Position)
                 {
-                    todo.Position--;
+                    todos.Position--;
                 }
             }
             ctx.Todos.Remove(todo);
@@ -154,17 +169,6 @@ namespace TodoApi.Controllers
         {
             return ctx.Todos.Any(e => e.Id == id);
         }
-
-        private static TodoDTO ItemToDTO(Todo todo) =>
-            new TodoDTO()
-            {
-                Id = todo.Id,
-                Position = (int)todo.Position,
-                Title = todo.Title,
-                Description = todo.Description,
-                DueDate = todo.DueDate.ToString(),
-                Status = todo.Status.ToString()
-            };
 
         private static Todo DTOtoItem(TodoDTO dto) =>
             new Todo()

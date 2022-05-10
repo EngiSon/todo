@@ -37,8 +37,8 @@ export default function InputRow(props) {
           noValidate
           autoComplete="off"
         >
-          <TextField id="name-input" label="Name" variant="filled" value={name} onChange={handleNameChange}/>
-          <TextField id="description-input" label="Todo" variant="filled" value={description} onChange={handleDescChange}/>
+          <TextField id="name-input" label="Name" variant="filled" value={name} onChange={handleNameChange} required/>
+          <TextField id="description-input" label="Todo" variant="filled" value={description} onChange={handleDescChange} required/>
           <TextField
             id="date-input"
             label="Due date"
@@ -49,6 +49,7 @@ export default function InputRow(props) {
             }}
             value={date}
             onChange={handleDateChange}
+            required
           />
         </Card>
         <IconButton color='primary' type='submit'>

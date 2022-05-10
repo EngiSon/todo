@@ -13,7 +13,7 @@ namespace TodoApi.Test
             Title = "Test123",
             Description = "TestDescription",
             DueDate = "Jan 1, 2009",
-            Status = "DONE"
+            Status = "done"
         };
 
         [TestMethod]

@@ -1,75 +1,99 @@
 import { Stack } from '@mui/material';
 import { useState } from 'react';
-import {nanoid} from 'nanoid';
 import './App.css';
 import InputRow from './components/InputRow';
 import TodoCard from './components/TodoCard';
 import ToggleButtons from './components/ToggleButtons';
 
-class Todo {
-  constructor(name, description, dueDate, status) {
-    this.id = nanoid();
-    this.name = name;
-    this.desc = description;
-    this.date = dueDate;
-    this.status = status;
-  }
-}
-
 function App() {
+  const axios = require('axios').default;
+  const uri = 'http://localhost:5160/api/todos'
   const [todos, setTodos] = useState([]);
   const [filtStatus, setFiltStatus] = useState('prog');
+
+  window.onload = () => getAllTodos()
+  
   
   const todosList = todos.filter(todo => todo.status === filtStatus).map(todo => (
     <TodoCard
       id = {todo.id}
       key = {todo.id}
-      name = {todo.name}
-      desc = {todo.desc}
-      date = {todo.date}
+      name = {todo.title}
+      desc = {todo.description}
+      date = {todo.dueDate}
       deleteTodo = {deleteTodo}
       moveTodo = {moveTodo}
       setStatus = {setStatus}
     />
   ))
 
-  function addTodo(name, desc, date) {
-    const newTodo = new Todo(name, desc, date, 'prog');
-    setTodos([...todos, newTodo])
+  async function addTodo(name, desc, date) {
+    try {
+      await axios.post(uri,
+        {
+          Title: name,
+          Description: desc,
+          DueDate: date,
+          Status: "prog"
+        })
+    } catch (error) {
+      console.error(error)
+    }
+    getAllTodos()
   }
 
-  function deleteTodo(id) {
-    const newTodos = todos.filter(todo => id !== todo.id);
-    setTodos(newTodos)
+  async function deleteTodo(id) {
+    try {
+      await axios.delete(uri+"/"+id)
+    } catch (error) {
+      console.error(error)
+    }
+    getAllTodos()
   }
 
-  function moveTodo(id, dir) {
-    const indexOfMoving = todos.indexOf(todos.find(todo => id === todo.id));
+  async function moveTodo(id, dir) {
+    const indexOfMoving = todos.indexOf(todos.find(todo => id === todo.Id));
     if (
-      !(indexOfMoving === 0 && dir === -1)
-      && !(indexOfMoving === todos.length - 1 && dir === 1)) {
-      const movingTodo = todos.filter(todo => id === todo.id)[0];
-      const newTodos = todos.filter(todo => id !== todo.id)
-      newTodos.splice(indexOfMoving + dir, 0, movingTodo)
-      setTodos(newTodos);
+      !(indexOfMoving === 0 && dir === 1)
+      && !(indexOfMoving === todos.length - 1 && dir === -1)) {
+      if (dir === -1) {
+        try {
+          await axios.put(uri+"/"+id+"/movedown")
+        } catch (error) {
+          console.error(error)
+        }
+      } else if (dir === 1) {
+        try {
+          await axios.put(uri+"/"+id+"/moveup")
+        } catch (error) {
+          console.error(error)
+        }
+      }
+      getAllTodos()
     } else {
       return
     }
   }
 
-  function setStatus(id, stat) {
-    const newTodos = todos.map(todo => {
-      if (id === todo.id 
-          && todos.find(todo => todo.id === id).status !== stat) {
-        return {...todo, status: stat}
-      }
-      return todo
-    })
-    setTodos(newTodos)
+  async function setStatus(id, stat) {
+    try {
+      await axios.put(uri+"/"+id+"/"+stat)
+    } catch (error) {
+      console.error(error)
+    }
+    getAllTodos()
   }
 
   function setFilteredStatus(status) {
     setFiltStatus(status)
+  }
+
+  async function getAllTodos() {
+    try {
+      await axios.get(uri).then(result => setTodos(result.data))
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (
