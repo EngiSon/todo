@@ -32,7 +32,7 @@ Navigate into the todo-backend/TodoApi folder in the downloaded (or cloned) proj
 - **Installing node packages for the frontend**
 
 This step requires you to have npm (Node package manager), so make sure that you have it installed.
-Navigate into the todo-client folder in the project in the terminal of your choice and then run the following command:
+Navigate into the **todo-client** folder in the project in the terminal of your choice and then run the following command:
 
     npm install
 
