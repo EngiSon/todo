@@ -5,22 +5,13 @@ import InputRow from './components/InputRow';
 import TodoCard from './components/TodoCard';
 import ToggleButtons from './components/ToggleButtons';
 
-class Todo {
-  constructor(id, position, name, description, duedate, status) {
-    this.id = id;
-    this.position = position;
-    this.title = name;
-    this.description= description;
-    this.dueDate = duedate;
-    this.status = status;
-  }
-}
-
 function App() {
   const axios = require('axios').default;
   const uri = 'http://localhost:5160/api/todos'
   const [todos, setTodos] = useState([]);
   const [filtStatus, setFiltStatus] = useState('prog');
+
+  window.onload = () => getAllTodos()
   
   
   const todosList = todos.filter(todo => todo.status === filtStatus).map(todo => (
@@ -97,10 +88,9 @@ function App() {
     setFiltStatus(status)
   }
 
-  function getAllTodos() {
+  async function getAllTodos() {
     try {
       await axios.get(uri).then(result => setTodos(result.data))
-      console.log(todos)
     } catch (error) {
       console.error(error)
     }

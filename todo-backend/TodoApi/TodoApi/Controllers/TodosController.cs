@@ -115,7 +115,7 @@ namespace TodoApi.Controllers
             {
                 if (todos.Position > todo.Position)
                 {
-                    todo.Position--;
+                    todos.Position--;
                 }
             }
             ctx.Todos.Remove(todo);
@@ -131,7 +131,7 @@ namespace TodoApi.Controllers
             if (todo == null)
             {
                 return NotFound();
-            } else if (ctx.Todos.Count() == todo.Position)
+            } else if (ctx.Todos.Count() == todo.Position + 1)
             {
                 return BadRequest();
             }
