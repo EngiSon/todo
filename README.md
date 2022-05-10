@@ -19,14 +19,17 @@ You can also download the repository by going to the [project's website](https:/
 
 **Setting up the application**
 - **Creating the database**
+
 To make sure that you have a databse called **Todos** (having this same name is extremely important) on the localDB server, open Microsoft SQL Server Management Studio and connect to `(localdb)\MSSQLLocalDB` in the connection dialogue box using Windows Authentication.
 After you are done with that and you have connected to localDB, right click on **Databases** and create a new database and call it **Todos**
 - **Applying the migration to the database**
+
 Navigate into the todo-backend/TodoApi folder in the downloaded (or cloned) project folder and open the solution file in there. After you have done that, make sure that all dependencies are resolved in the project and then open the package manager console (PMC), by going to Tools/NuGet Package Manager. After you have done that, run the following command in the PMC:
 
     `Update-Database`
 
 - **Installing node packages for the frontend**
+
 This step requires you to have npm (Node package manager), so make sure that you have it installed.
 Navigate into the todo-client folder in the project in the terminal of your choice and then run the following command:
 
@@ -35,6 +38,7 @@ Navigate into the todo-client folder in the project in the terminal of your choi
 It might take a while, but after it has installed, everything should be ready to start using the app.
 
 **Starting the application**
+
 To start the application, you have to start the backend first and make sure that it initializes before you would start the frontend app.
 
 Open the **TodoApi** solution (.sln) and launch the app using either **F5** or the run button, this should launch the backend and it should now be ready to receiva calls.
